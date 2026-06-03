@@ -1,0 +1,126 @@
+\documentclass[conference]{IEEEtran}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish]{babel}
+\usepackage{cite}
+\usepackage{url}
+
+\begin{document}
+
+\title{Análisis de la Arquitectura Orientada a Servicios (SOA) en IBM\\
+y su Aplicación al Sistema de Control de Laboratorios Informáticos (SCLI)}
+
+\author{
+\IEEEauthorblockN{Freddy Farinango}
+\IEEEauthorblockA{
+Universidad Técnica Estatal de Quevedo (UTEQ)\\
+Ingeniería en Software --- Aplicaciones Distribuidas\\
+02 de junio de 2026
+}
+}
+
+\maketitle
+
+\section{INTRODUCCIÓN}
+
+Las organizaciones modernas dependen de sistemas distribuidos capaces de integrar múltiples plataformas tecnológicas heterogéneas. En este contexto, la Arquitectura Orientada a Servicios (SOA) emerge como un paradigma que estructura las aplicaciones en servicios independientes con interfaces bien definidas, permitiendo la reutilización de componentes y la interoperabilidad entre sistemas [1].
+
+A diferencia de las arquitecturas monolíticas, donde cualquier modificación obliga a redesplegar la totalidad del sistema, SOA desacopla la lógica de negocio en unidades funcionales autónomas que se comunican mediante protocolos estándar como SOAP o REST. IBM ha sido pionera en la adopción e implementación de SOA a escala empresarial, lo que la convierte en un caso de estudio relevante para comprender tanto los beneficios como los desafíos prácticos de este estilo arquitectónico.
+
+El presente informe analiza la experiencia de IBM con SOA, contrasta este enfoque con alternativas contemporáneas como los microservicios, y propone cómo los principios de SOA pueden aplicarse al Sistema de Control de Laboratorios Informáticos (SCLI) desarrollado en la asignatura de Aplicaciones Distribuidas.
+
+\section{METODOLOGÍA}
+
+Para la elaboración de este análisis se adoptó un enfoque de revisión bibliográfica sistemática focalizada. La búsqueda de fuentes se realizó en las bases de datos IEEE Xplore, ScienceDirect y MDPI durante mayo de 2026, utilizando los términos: service-oriented architecture, SOA enterprise integration, SOA vs microservices y distributed architecture governance.
+
+Los criterios de inclusión fueron: (a) artículos publicados entre 2020 y 2023, (b) disponibles con DOI verificable, y (c) con revisión por pares. Se seleccionaron cinco fuentes que cubren los aspectos conceptuales, de aplicación en entornos IoT, comparación con microservicios, integración empresarial y gobernanza de SOA.
+
+\section{RESULTADOS}
+
+\subsection{SOA como paradigma de integración empresarial}
+
+Niknejad et al. llevaron a cabo una revisión sistemática de 103 estudios primarios sobre SOA, identificando cuatro grandes dimensiones de investigación: adopción, concepto, impacto y práctica. Los autores concluyen que la gobernanza SOA, la estrategia organizacional y los costos de implementación constituyen los factores más determinantes para el éxito o fracaso de una iniciativa de este tipo [1].
+
+En el caso concreto de IBM, la empresa adoptó SOA para integrar aplicaciones desarrolladas en tecnologías heterogéneas. Mediante un Enterprise Service Bus (ESB), IBM conectó sistemas heredados con nuevas plataformas sin reemplazar la infraestructura existente, obteniendo reutilización de servicios y reducción de la duplicidad de lógica de negocio, tal como documentan Grant y Yeo [2].
+
+\subsection{SOA en entornos distribuidos modernos}
+
+Giao et al. propusieron un marco SOA para el desarrollo de aplicaciones IoT en contextos de manufactura industrial, demostrando que el patrón SOA permite añadir dinámicamente nuevos servicios en tiempo de ejecución sin interrumpir los procesos activos [3]. Este resultado extiende la validez de SOA más allá del entorno empresarial clásico hacia escenarios de alta dinamicidad tecnológica.
+
+Por su parte, Cui et al. analizaron la combinación de SOA con metodologías ágiles como Scrum en entornos IIoT, concluyendo que esta combinación mejora la trazabilidad de los servicios y la velocidad de respuesta ante cambios de requerimientos [4].
+
+\subsection{Comparación entre SOA y microservicios}
+
+Abgaz et al. realizaron una revisión sistemática sobre la descomposición de aplicaciones monolíticas y SOA hacia microservicios, identificando que la motivación principal para migrar es la necesidad de despliegues independientes y escalabilidad por servicio [5]. Sin embargo, advierten que las migraciones no planificadas incrementan la deuda técnica y la complejidad operacional, especialmente en sistemas legados bien establecidos.
+
+\section{DISCUSIÓN}
+
+\subsection{Análisis crítico de la experiencia IBM}
+
+La experiencia de IBM ilustra tanto las ventajas como las limitaciones estructurales de SOA. La interoperabilidad entre plataformas heterogéneas y la reutilización de servicios redujeron costos de integración y aceleraron el tiempo de respuesta ante cambios de negocio. No obstante, la gestión centralizada mediante ESB creó un punto único de fallo potencial y un cuello de botella de rendimiento conforme aumentó el número de servicios registrados [1].
+
+Desde mi perspectiva, la decisión de adoptar SOA debería evaluarse a partir de dos criterios: la heterogeneidad tecnológica del entorno y el nivel de madurez operacional del equipo de TI. Cuando la prioridad es la escalabilidad independiente por dominio de negocio con DevOps maduro, los microservicios ofrecen ventajas superiores [5]. Esta distinción requiere un análisis contextual que considere el tamaño del sistema, el presupuesto operacional y la experiencia técnica disponible.
+
+\subsection{Propuesta de aplicación al SCLI}
+
+El Sistema de Control de Laboratorios Informáticos (SCLI) gestiona usuarios, laboratorios, equipos, incidencias y reportes. Se propone aplicar SOA mediante cinco servicios independientes:
+
+\begin{enumerate}
+\item Autenticación y usuarios: gestión de roles, sesiones y permisos.
+\item Inventario de laboratorios: estado de equipos y disponibilidad de espacios.
+\item Reservas: lógica de asignación y confirmación.
+\item Incidencias: registro, seguimiento y cierre de reportes técnicos.
+\item Reportes: generación de estadísticas para administración institucional.
+\end{enumerate}
+
+Para la comunicación se recomienda RESTful HTTP/JSON, y la gobernanza mediante un API Gateway que centralice autenticación y logging, preservando el acoplamiento débil de SOA sin la complejidad de un ESB completo [3].
+
+La adopción de SOA tiene sentido si el SCLI debe integrarse con otros sistemas institucionales en el futuro, caso en el cual la interoperabilidad resulta decisiva [4].
+
+\section{CONCLUSIÓN}
+
+La experiencia de IBM demuestra que SOA constituye una solución eficaz para la integración de sistemas heterogéneos a escala empresarial, siempre que se acompañe de una gobernanza adecuada. La revisión de literatura confirma que sus beneficios de interoperabilidad y reutilización son reproducibles, pero están condicionados por la madurez organizacional del equipo [1].
+
+La comparación con microservicios revela que SOA no ha quedado obsoleto, sino que coexiste como una opción válida para contextos con sistemas legados o necesidades de integración amplia [5]. Para el SCLI, SOA representa una arquitectura adecuada si el sistema se concibe como componente de un ecosistema institucional más amplio, donde la interoperabilidad futura justifica el incremento de complejidad arquitectónica.
+
+\begin{thebibliography}{99}
+
+\bibitem{ref1}
+N. Niknejad, W. Ismail, I. Ghani, B. Nazari, M. Bahari, and A. R. B. C. Hussin,
+``Understanding Service-Oriented Architecture (SOA): A systematic literature review,''
+\textit{Information Systems},
+vol. 91, p. 101491, 2020.
+DOI: 10.1016/j.is.2020.101491.
+
+\bibitem{ref2}
+D. Grant and B. Yeo,
+``Enterprise Integration Using Service-Oriented Architecture,''
+\textit{Issues in Information Systems},
+vol. 22, no. 1, pp. 164--177, 2021.
+DOI: 10.48009/1\_iis\_2021\_164-177.
+
+\bibitem{ref3}
+J. Giao, A. A. Nazarenko, F. Luis-Ferreira, D. Gonçalves, and J. Sarraipa,
+``A Framework for SOA-Based IoT Application Development,''
+\textit{Processes},
+vol. 10, no. 9, p. 1782, 2022.
+DOI: 10.3390/pr10091782.
+
+\bibitem{ref4}
+Y. Cui, I. Zada, S. Shahzad, S. Nazir, S. U. Khan, N. Hussain, and M. Asshad,
+``Analysis of Service-Oriented Architecture and Scrum for IIoT,''
+\textit{Scientific Programming},
+vol. 2021, p. 6611407, 2021.
+DOI: 10.1155/2021/6611407.
+
+\bibitem{ref5}
+Y. Abgaz, A. McCarren, P. Elger et al.,
+``Decomposition of Monolith Applications into Microservices: A Systematic Review,''
+\textit{IEEE Transactions on Software Engineering},
+vol. 49, no. 8, pp. 4213--4242, 2023.
+DOI: 10.1109/TSE.2023.3287297.
+
+\end{thebibliography}
+
+\end{document}
